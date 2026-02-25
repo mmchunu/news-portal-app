@@ -156,13 +156,13 @@ http://127.0.0.1:8000/admin/
 The API uses Token Authentication.
 
 To generate a token:
-
+```bash
 python manage.py drf_create_token <username>
-
+```
 Include the token in Postman headers:
-
+```
 Authorization: Token your_token_here
-
+```
 ## API ENDPOINTS
 
 Method	Endpoint	Description
@@ -172,25 +172,25 @@ POST	/api/token/	Obtain authentication token
 ## RUNNING TESTS
 
 Run:
-
+```
 python manage.py test
-
+```
 Includes:
 
-Model tests
+- Model tests
 
-View tests
+- View tests
 
-API tests
+- API tests
 
-X API integration tests (simulated)
+- X API integration tests (simulated)
 
 ## CODE QUALITY
 
 Linting is enforced using:
-
+```
 flake8
-
+```
 All major linting issues have been resolved before submission.
 
 ## PROJECT STRUCTURE
@@ -212,10 +212,10 @@ news_portal/
 
 ## DESIGN DECISIONS
 
-Used a service layer (services.py) to separate side effects from views.
+- Used a service layer (services.py) to separate side effects from views.
 
-Implemented subscription-based filtering for REST API.
+- Implemented subscription-based filtering for REST API.
 
-Used environment variables for secure API key handling.
+- Used environment variables for secure API key handling.
 
-Simulated X API posting when permissions are restricted.
+- Simulated X API posting when permissions are restricted.
