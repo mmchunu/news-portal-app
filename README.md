@@ -85,11 +85,11 @@ Make sure MariaDB is installed and running before starting the project.
 ## INSTALLATION INSTRUCTIONS
 
 ```bash
-### 1. Clone the Repository
+# 1. Clone the Repository
 git clone https://github.com/mmchunu/news-portal-app/
 cd news_portal
 
-### 2. Create Virtual Environment
+# 2. Create Virtual Environment
 python -m venv venv
 
 Activate it:
@@ -102,14 +102,14 @@ Windows (CMD):
 
 venv\Scripts\activate
 
-### 3. Install Dependencies
+# 3. Install Dependencies
 pip install -r requirements.txt
 
 If no requirements file exists:
 
 pip install django djangorestframework mysqlclient tweepy python-decouple flake8
 
-### 4. Configure Environment Variables
+# 4. Configure Environment Variables
 Create a .env file in the project root:
 
 TWITTER_API_KEY=your_key
@@ -119,7 +119,7 @@ TWITTER_ACCESS_SECRET=your_access_secret
 
 ⚠️ Do NOT commit this file.
 
-### 5. Configure Database
+# 5. Configure Database
 In settings.py, ensure:
 
 DATABASES = {
@@ -133,13 +133,13 @@ DATABASES = {
     }
 }
 
-### 6. Run Migrations
+# 6. Run Migrations
 python manage.py migrate
 
-### 7. Create Superuser
+# 7. Create Superuser
 python manage.py createsuperuser
 
-### 8. Run Development Server
+# 8. Run Development Server
 python manage.py runserver
 
 Visit:
