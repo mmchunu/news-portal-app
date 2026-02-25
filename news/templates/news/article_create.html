@@ -1,0 +1,29 @@
+{% extends "news/base.html" %}
+
+{% block title %}Create Article{% endblock %}
+
+{% block content %}
+
+<h1>Create Article</h1>
+
+<!-- Publishing rules explanation -->
+<p class="info-text">
+    If no publisher is selected, the article will be published immediately.
+    If a publisher is selected, the article must be approved by an editor.
+</p>
+
+<!-- Article Creation Form -->
+<form method="POST">
+    {% csrf_token %}
+
+    <!-- Display form fields -->
+    {{ form.as_p }}
+
+    <!-- Form buttons -->
+    <div class="form-buttons">
+        <button type="submit" class="btn btn-primary">Create Article</button>
+        <a href="{% url 'article_list' %}" class="btn btn-danger">Cancel</a>
+    </div>
+</form>
+
+{% endblock %}

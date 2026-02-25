@@ -1,0 +1,59 @@
+{% extends "news/base.html" %}
+
+{% block title %}All Publishers{% endblock %}
+
+{% block content %}
+
+<h1>Publishers</h1>
+
+<!-- List all publishers -->
+{% if publishers %}
+    <ul class="publisher-list">
+        {% for publisher in publishers %}
+            <li class="publisher-card">
+
+                <!-- Publisher name -->
+                <a href="{% url 'publisher_detail' publisher.pk %}" class="publisher-name">
+                    {{ publisher.name }}
+                </a>
+
+                <!-- Publisher description -->
+                <p class="publisher-description">
+                    {{ publisher.description|default:"No description available." }}
+                </p>
+
+                <!-- Action buttons -->
+                <div class="publisher-actions">
+
+                    <!-- Manage button (editors linked to publisher only) -->
+                    {% if user.role == 'editor' and user in publisher.editors.all %}
+                        <a href="{% url 'publisher_update' publisher.pk %}" class="btn btn-primary">
+                            Manage
+                        </a>
+                    {% endif %}
+
+                    <!-- Subscribe / Unsubscribe (readers only) -->
+                    {% if user.role == 'reader' %}
+                        {% if publisher.id in subscribed_publisher_ids %}
+                            <a href="{% url 'publisher_subscribe' publisher.pk %}?next={% url 'publisher_list' %}"
+                               class="btn btn-danger">
+                                Unsubscribe
+                            </a>
+                        {% else %}
+                            <a href="{% url 'publisher_subscribe' publisher.pk %}?next={% url 'publisher_list' %}"
+                               class="btn btn-success">
+                                Subscribe
+                            </a>
+                        {% endif %}
+                    {% endif %}
+
+                </div>
+
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No publishers found.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "news/base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+<h1>Register</h1>
+
+<!-- Display messages (errors, success) -->
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="message {{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<!-- Registration Form -->
+<form method="POST" class="form">
+    {% csrf_token %}
+
+    <!-- Username -->
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required class="input-field">
+
+    <!-- Email -->
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required class="input-field">
+
+    <!-- Role -->
+    <label for="role">Role:</label>
+    <select name="role" id="role" required class="input-field">
+        <option value="reader">Reader</option>
+        <option value="journalist">Journalist</option>
+        <option value="editor">Editor</option>
+    </select>
+
+    <!-- Password -->
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required class="input-field">
+
+    <!-- Confirm Password -->
+    <label for="password2">Confirm Password:</label>
+    <input type="password" name="password2" id="password2" required class="input-field">
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+<p class="form-note">
+    Already have an account? <a href="{% url 'login' %}" class="link">Login here</a>.
+</p>
+
+{% endblock %}

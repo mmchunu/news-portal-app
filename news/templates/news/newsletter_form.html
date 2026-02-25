@@ -1,0 +1,59 @@
+{% extends "news/base.html" %}
+
+{% block title %}
+    {% if newsletter %}Edit Newsletter{% else %}Create Newsletter{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<h1>{% if newsletter %}Edit Newsletter{% else %}Create Newsletter{% endif %}</h1>
+
+<!-- Newsletter Form -->
+<form method="POST">
+    {% csrf_token %}
+
+    <!-- Show form errors if any -->
+    {% if form.errors %}
+        <div class="form-errors">
+            <strong>Please fix the errors below:</strong>
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    <!-- Title Field -->
+    <div class="form-group">
+        <label for="id_title"><strong>Title:</strong></label><br>
+        {{ form.title }}
+    </div>
+
+    <!-- Content Field -->
+    <div class="form-group">
+        <label for="id_content"><strong>Content:</strong></label><br>
+        {{ form.content }}
+    </div>
+
+    <!-- Publisher Field (Visible for editors) -->
+    {% if form.publisher %}
+        <div class="form-group">
+            <label for="id_publisher"><strong>Publisher:</strong></label><br>
+            {{ form.publisher }}
+        </div>
+    {% endif %}
+
+    <!-- Publish Now Checkbox -->
+    <div class="form-group">
+        <label>
+            {{ form.is_published }} Publish now
+        </label>
+    </div>
+
+    <!-- Action Buttons -->
+    <button type="submit" class="btn btn-success">
+        {% if newsletter %}Update Newsletter{% else %}Create Newsletter{% endif %}
+    </button>
+
+    <a href="{% url 'newsletter_list' %}" class="btn btn-cancel">Cancel</a>
+
+</form>
+
+{% endblock %}

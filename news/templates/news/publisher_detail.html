@@ -1,0 +1,42 @@
+{% extends "news/base.html" %}
+
+{% block content %}
+
+<h1>{{ publisher.name }}</h1>
+
+<p>{{ publisher.description }}</p>
+
+<hr>
+
+{% if user.role == 'reader' %}
+    {% if is_subscribed %}
+        <!-- Unsubscribe Button -->
+        <a href="{% url 'publisher_subscribe' publisher.pk %}" class="btn btn-danger">
+            Unsubscribe
+        </a>
+    {% else %}
+        <!-- Subscribe Button -->
+        <a href="{% url 'publisher_subscribe' publisher.pk %}" class="btn btn-success">
+            Subscribe
+        </a>
+    {% endif %}
+    <hr>
+{% endif %}
+
+<!-- Articles Section -->
+<h2>Articles</h2>
+{% include 'news/article_preview.html' %}
+
+<!-- Newsletters Section -->
+<h2>Newsletters</h2>
+{% include "news/newsletter_preview.html" with newsletters=publisher.newsletter_set.all %}
+
+<!-- Back Link -->
+<div class="back-link">
+    <a href="#"
+       onclick="if(document.referrer){ history.back(); } else { window.location.href='{% url 'home' %}'; } return false;">
+        ← Back
+    </a>
+</div>
+
+{% endblock %}

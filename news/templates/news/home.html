@@ -1,0 +1,59 @@
+{% extends "news/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="home-welcome">
+    {% if user.is_authenticated %}
+        <h1>Welcome, {{ user.username }} 👋</h1>
+        {% if user.role == "reader" %}
+            <p>Stay updated with the latest articles and newsletters.</p>
+        {% elif user.role == "journalist" %}
+            <p>Manage your articles and newsletters from your dashboard.</p>
+        {% elif user.role == "publisher" %}
+            <p>Oversee your publications and grow your audience.</p>
+        {% endif %}
+    {% else %}
+        <h1>Welcome to News Platform</h1>
+        <p>Discover the latest articles and newsletters from trusted journalists and publishers.</p>
+
+        <div class="home-auth-buttons action-group">
+            <a href="{% url 'login' %}" class="btn-link btn-primary">Login</a>
+            <a href="{% url 'register' %}" class="btn-link btn-success">Register</a>
+        </div>
+    {% endif %}
+</div>
+
+<section class="home-section">
+    <h2>Latest Articles</h2>
+    {% include "news/article_preview.html" with articles=latest_articles %}
+</section>
+
+<section class="home-section">
+    <h2>Latest Newsletters</h2>
+    {% include "news/newsletter_preview.html" with newsletters=latest_newsletters %}
+</section>
+
+<section class="home-section">
+    <h2>Explore</h2>
+    <div class="explore-links action-group">
+        {% if user.is_authenticated %}
+            <a href="{% url 'publisher_list' %}" class="btn-link btn-primary">
+                View Publishers
+            </a>
+            <a href="{% url 'journalist_list' %}" class="btn-link btn-primary">
+                View Journalists
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}?next={% url 'publisher_list' %}" class="btn-link btn-primary">
+                View Publishers
+            </a>
+            <a href="{% url 'login' %}?next={% url 'journalist_list' %}" class="btn-link btn-primary">
+                View Journalists
+            </a>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

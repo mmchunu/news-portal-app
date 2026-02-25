@@ -1,0 +1,95 @@
+{% extends "news/base.html" %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+
+<!-- Article Title -->
+<h1>
+    {{ article.title }}
+    {% if not article.is_approved %}
+        <span class="pending">(Pending Approval)</span>
+    {% endif %}
+</h1>
+
+<!-- Author -->
+<p>
+    <strong>Author:</strong>
+    <a href="{% url 'journalist_detail' article.author.pk %}" class="link">
+        {{ article.author.username }}
+    </a>
+</p>
+
+<!-- Publisher -->
+<p>
+    <strong>Publisher:</strong>
+    {% if article.publisher %}
+        <a href="{% url 'publisher_detail' article.publisher.pk %}" class="link">
+            {{ article.publisher.name }}
+        </a>
+    {% else %}
+        Independent
+    {% endif %}
+</p>
+
+<!-- Published Date -->
+<p>
+    <strong>Published:</strong>
+    {% if article.published_at %}
+        {{ article.published_at|date:"F d, Y - g:i A" }}
+    {% else %}
+        Not published yet
+    {% endif %}
+</p>
+
+<hr>
+
+<!-- Full Article Content / Subscription Notice -->
+{% if has_access %}
+    <div class="article-content">
+        <p>{{ article.content|linebreaks }}</p>
+    </div>
+{% else %}
+    <div class="subscription-box">
+        <strong>Subscription Required</strong>
+        <p>You must subscribe to view the full article.</p>
+
+        {% if user.role == 'reader' %}
+            {% if article.publisher %}
+                <a href="{% url 'publisher_subscribe' article.publisher.pk %}?next={{ request.path }}" class="btn btn-success">
+                    Subscribe to {{ article.publisher.name }}
+                </a>
+            {% else %}
+                <a href="{% url 'journalist_subscription' article.author.pk %}?next={{ request.path }}" class="btn btn-success">
+                    Subscribe to {{ article.author.username }}
+                </a>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}
+
+<hr>
+
+<!-- Action Buttons (Edit, Approve, Delete) -->
+{% if user.is_authenticated %}
+    <div class="article-buttons">
+        {% if can_edit %}
+            <a href="{% url 'article_update' article.pk %}" class="btn btn-primary">Edit Article</a>
+        {% endif %}
+        {% if can_approve %}
+            <a href="{% url 'article_approve' article.pk %}" class="btn btn-success">Approve Article</a>
+        {% endif %}
+        {% if can_delete %}
+            <a href="{% url 'article_delete' article.pk %}" class="btn btn-danger">Delete Article</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+<!-- Back Button -->
+<a href="#"
+   onclick="if(document.referrer){ history.back(); } else { window.location.href='{% url 'home' %}'; } return false;"
+   class="link back-link">
+    ← Back
+</a>
+
+{% endblock %}

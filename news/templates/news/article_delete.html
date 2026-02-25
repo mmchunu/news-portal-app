@@ -1,0 +1,28 @@
+{% extends "news/base.html" %}
+
+{% block title %}Delete Article{% endblock %}
+
+{% block content %}
+
+<!-- Delete Confirmation Page -->
+<h1>Delete Article</h1>
+
+<!-- Article Summary -->
+<div class="article-card">
+    <h3>{{ article.title }}</h3>
+    <p><strong>Author:</strong> {{ article.author.username }}</p>
+    {% if article.publisher %}
+        <p><strong>Publisher:</strong> {{ article.publisher.name }}</p>
+    {% endif %}
+</div>
+
+<hr>
+
+<!-- Delete Confirmation Form -->
+<form method="POST" class="form-buttons">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, Delete Article</button>
+    <a href="{% url 'article_detail' article.id %}" class="btn btn-cancel">Cancel</a>
+</form>
+
+{% endblock %}

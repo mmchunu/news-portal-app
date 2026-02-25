@@ -1,0 +1,60 @@
+{% extends "news/base.html" %}
+
+{% block title %}My Articles{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">My Articles</h1>
+
+<hr>
+
+{% if articles %}
+    <div class="article-container">
+        {% for article in articles %}
+            <div class="article-card">
+                <!-- Article Title -->
+                <h3 class="article-title">{{ article.title }}</h3>
+
+                <!-- Publisher Info -->
+                <p>
+                    <strong>Publisher:</strong>
+                    {% if article.publisher %}
+                        {{ article.publisher.name }}
+                    {% else %}
+                        Independent
+                    {% endif %}
+                </p>
+
+                <!-- Status -->
+                <p>
+                    <strong>Status:</strong>
+                    {% if article.is_approved %}
+                        Approved
+                    {% else %}
+                        Pending
+                    {% endif %}
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="article-actions" style="display: flex; gap: 10px;">
+                    <a href="{% url 'article_detail' article.pk %}" class="btn btn-primary">
+                        View Article
+                    </a>
+                    <a href="{% url 'article_update' article.pk %}" class="btn btn-success">
+                        Edit Article
+                    </a>
+                </div>
+
+            </div>
+
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+
+        {% endfor %}
+    </div>
+{% else %}
+    <p>You have not created any articles yet.</p>
+{% endif %}
+
+{% endblock %}

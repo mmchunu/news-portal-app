@@ -1,0 +1,38 @@
+{% extends "news/base.html" %}
+
+{% block title %}All Journalists{% endblock %}
+
+{% block content %}
+
+<h1>Journalists</h1>
+
+{% if journalists %}
+    <ul class="list-clean">
+        {% for journalist in journalists %}
+            <li class="journalist-card">
+                <!-- Name links to detail page -->
+                <a href="{% url 'journalist_detail' journalist.pk %}" class="link">
+                    {{ journalist.username }}
+                </a>
+
+                <p><strong>Email:</strong> {{ journalist.email }}</p>
+
+                {% if user.role == 'reader' %}
+                    {% if journalist.id in subscribed_journalist_ids %}
+                        <a href="{% url 'journalist_subscription' journalist.pk %}?next={% url 'journalist_list' %}" class="btn btn-danger">
+                            Unsubscribe
+                        </a>
+                    {% else %}
+                        <a href="{% url 'journalist_subscription' journalist.pk %}?next={% url 'journalist_list' %}" class="btn btn-success">
+                            Subscribe
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No journalists found.</p>
+{% endif %}
+
+{% endblock %}

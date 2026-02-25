@@ -1,0 +1,23 @@
+{% extends "news/base.html" %}
+
+{% block title %}Edit Article{% endblock %}
+
+{% block content %}
+
+<h2>Edit Article</h2>
+
+<!-- Article Edit Form -->
+<form method="POST">
+    {% csrf_token %}
+
+    <!-- Form fields -->
+    {{ form.as_p }}
+
+    <!-- Form Buttons -->
+    <div class="form-buttons">
+        <button type="submit" class="btn btn-primary">Update Article</button>
+        <a href="{% url 'article_detail' article.id %}" class="btn btn-cancel">Cancel</a>
+    </div>
+</form>
+
+{% endblock %}

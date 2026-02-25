@@ -1,0 +1,58 @@
+{% extends "news/base.html" %}
+
+{% block title %}{{ newsletter.title }}{% endblock %}
+
+{% block content %}
+
+<!-- Newsletter Title -->
+<h1>{{ newsletter.title }}</h1>
+
+<!-- Meta Info -->
+<p class="meta-info">
+    By {{ newsletter.author.username }}
+    {% if newsletter.publisher %}| Publisher: {{ newsletter.publisher.name }}{% endif %}
+    {% if newsletter.published_at %}| Published: {{ newsletter.published_at|date:"F d, Y" }}{% else %}| Draft{% endif %}
+</p>
+
+<hr>
+
+<!-- Content or Subscription Required -->
+{% if has_access %}
+    <p>{{ newsletter.content|linebreaks }}</p>
+{% else %}
+    <div class="subscription-box">
+        <strong>Subscription Required</strong>
+        <p>You must subscribe to view the full newsletter.</p>
+
+        {% if user.role == 'reader' %}
+            {% if newsletter.publisher %}
+                <a href="{% url 'publisher_subscribe' newsletter.publisher.pk %}?next={{ request.path }}" class="btn btn-success">
+                    Subscribe to {{ newsletter.publisher.name }}
+                </a>
+            {% else %}
+                <a href="{% url 'journalist_subscription' newsletter.author.pk %}?next={{ request.path }}" class="btn btn-success">
+                    Subscribe to {{ newsletter.author.username }}
+                </a>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}
+
+<hr>
+
+<!-- Author Controls -->
+{% if user.is_authenticated and user == newsletter.author %}
+<div class="button-group">
+    <a href="{% url 'newsletter_update' newsletter.pk %}" class="btn btn-primary">Edit Newsletter</a>
+    <a href="{% url 'newsletter_delete' newsletter.pk %}" class="btn btn-danger">Delete Newsletter</a>
+</div>
+{% endif %}
+
+<br><br>
+
+<!-- Back Button -->
+<a href="#" onclick="if(document.referrer){ history.back(); } else { window.location.href='{% url 'home' %}'; } return false;" class="link-back">
+    ← Back
+</a>
+
+{% endblock %}

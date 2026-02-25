@@ -1,0 +1,61 @@
+{% extends "news/base.html" %}
+
+{% block title %}My Newsletters{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">My Newsletters</h1>
+
+<hr>
+
+{% if newsletters %}
+    <div class="article-container">
+        {% for newsletter in newsletters %}
+            <div class="article-card">
+
+                <!-- Newsletter Title -->
+                <h3 class="article-title">{{ newsletter.title }}</h3>
+
+                <!-- Publisher Info -->
+                <p>
+                    <strong>Publisher:</strong>
+                    {% if newsletter.publisher %}
+                        {{ newsletter.publisher.name }}
+                    {% else %}
+                        Independent
+                    {% endif %}
+                </p>
+
+                <!-- Status -->
+                <p>
+                    <strong>Status:</strong>
+                    {% if newsletter.is_published %}
+                        Published
+                    {% else %}
+                        Draft
+                    {% endif %}
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="article-actions">
+                    <a href="{% url 'newsletter_detail' newsletter.pk %}" class="btn btn-primary">
+                        View Newsletter
+                    </a>
+                    <a href="{% url 'newsletter_update' newsletter.pk %}" class="btn btn-success">
+                        Edit Newsletter
+                    </a>
+                </div>
+
+            </div>
+
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+
+        {% endfor %}
+    </div>
+{% else %}
+    <p>You have not created any newsletters yet.</p>
+{% endif %}
+
+{% endblock %}

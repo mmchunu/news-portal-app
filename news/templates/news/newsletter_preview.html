@@ -1,0 +1,53 @@
+{% comment %}
+Reusable newsletter preview block.
+Expects `newsletters` variable in context.
+{% endcomment %}
+
+{% for newsletter in newsletters %}
+    <div class="newsletter-preview">
+        <h3>{{ newsletter.title }}</h3>
+
+        <!-- Publisher -->
+        <p>
+            <strong>Publisher:</strong>
+            {% if newsletter.publisher %}
+                {% if user.is_authenticated %}
+                    <a href="{% url 'publisher_detail' newsletter.publisher.pk %}" class="link-primary">
+                        {{ newsletter.publisher.name }}
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}?next={% url 'publisher_detail' newsletter.publisher.pk %}" class="link-primary">
+                        {{ newsletter.publisher.name }}
+                    </a>
+                {% endif %}
+            {% else %}
+                Independent
+            {% endif %}
+        </p>
+
+        <!-- Published Date -->
+        <p>
+            <strong>Published:</strong>
+            {% if newsletter.published_at %}
+                {{ newsletter.published_at|date:"F d, Y" }}
+            {% else %}
+                Not published
+            {% endif %}
+        </p>
+
+        <!-- View Newsletter Button -->
+        {% if user.is_authenticated %}
+            <a href="{% url 'newsletter_detail' newsletter.pk %}" class="btn btn-info">
+                View Newsletter
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}?next={% url 'newsletter_detail' newsletter.pk %}" class="btn btn-secondary">
+                View Newsletter (Login Required)
+            </a>
+        {% endif %}
+
+        <hr>
+    </div>
+{% empty %}
+    <p>No newsletters available.</p>
+{% endfor %}

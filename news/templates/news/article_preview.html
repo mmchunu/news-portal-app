@@ -1,0 +1,66 @@
+{% comment %}
+Reusable article preview block.
+Expects `articles` variable in context.
+{% endcomment %}
+
+{% for article in articles %}
+    <div class="article-card">
+
+        <!-- Article Title -->
+        <h3>{{ article.title }}</h3>
+
+        <!-- Author -->
+        <p>
+            <strong>Author:</strong>
+            {% if user.is_authenticated %}
+                <a href="{% url 'journalist_detail' article.author.pk %}" class="link">
+                    {{ article.author.username }}
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}?next={% url 'journalist_detail' article.author.pk %}" class="link">
+                    {{ article.author.username }}
+                </a>
+            {% endif %}
+        </p>
+
+        <!-- Publisher -->
+        <p>
+            <strong>Publisher:</strong>
+            {% if article.publisher %}
+                {% if user.is_authenticated %}
+                    <a href="{% url 'publisher_detail' article.publisher.pk %}" class="link">
+                        {{ article.publisher.name }}
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}?next={% url 'publisher_detail' article.publisher.pk %}" class="link">
+                        {{ article.publisher.name }}
+                    </a>
+                {% endif %}
+            {% else %}
+                Independent
+            {% endif %}
+        </p>
+
+        <!-- Published Date -->
+        <p>
+            <strong>Published:</strong>
+            {% if article.published_at %}
+                {{ article.published_at|date:"F d, Y" }}
+            {% else %}
+                Not published
+            {% endif %}
+        </p>
+
+        <!-- View Article Button -->
+        {% if user.is_authenticated %}
+            <a href="{% url 'article_detail' article.pk %}" class="btn btn-primary">View Article</a>
+        {% else %}
+            <a href="{% url 'login' %}?next={% url 'article_detail' article.pk %}" class="btn btn-secondary">
+                View Article (Login Required)
+            </a>
+        {% endif %}
+
+    </div>
+{% empty %}
+    <p>No articles available.</p>
+{% endfor %}

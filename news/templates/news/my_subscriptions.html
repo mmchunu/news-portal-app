@@ -1,0 +1,43 @@
+{% extends "news/base.html" %}
+
+{% block title %}My Subscriptions{% endblock %}
+
+{% block content %}
+
+<h1>My Subscriptions</h1>
+
+<!-- Publisher Subscriptions -->
+<h2>Publishers</h2>
+{% if publisher_subscriptions %}
+    <ul class="subscription-list">
+        {% for sub in publisher_subscriptions %}
+            <li class="subscription-item">
+                <a href="{% url 'publisher_detail' sub.publisher.pk %}" class="subscription-link">{{ sub.publisher.name }}</a>
+                <p class="subscription-date">Subscribed on {{ sub.subscribed_at|date:"F d, Y" }}</p>
+                <a href="{% url 'publisher_subscribe' sub.publisher.pk %}?next={% url 'my_subscriptions' %}" class="btn btn-danger">Unsubscribe</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You are not subscribed to any publishers yet.</p>
+{% endif %}
+
+<hr>
+
+<!-- Journalist Subscriptions -->
+<h2>Journalists</h2>
+{% if journalist_subscriptions %}
+    <ul class="subscription-list">
+        {% for sub in journalist_subscriptions %}
+            <li class="subscription-item">
+                <a href="{% url 'journalist_detail' sub.journalist.pk %}" class="subscription-link">{{ sub.journalist.username }}</a>
+                <p class="subscription-date">Subscribed on {{ sub.subscribed_at|date:"F d, Y" }}</p>
+                <a href="{% url 'journalist_subscription' sub.journalist.pk %}?next={% url 'my_subscriptions' %}" class="btn btn-danger">Unsubscribe</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You are not subscribed to any journalists yet.</p>
+{% endif %}
+
+{% endblock %}

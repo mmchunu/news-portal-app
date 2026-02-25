@@ -1,0 +1,38 @@
+{% extends "news/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<h1>Login</h1>
+
+<!-- Display messages -->
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="message {{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<!-- Login Form -->
+<form method="POST" class="form">
+    {% csrf_token %}
+
+    <!-- Username -->
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required class="input-field">
+
+    <!-- Password -->
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required class="input-field">
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+<p class="form-note">
+    Don't have an account? <a href="{% url 'register' %}" class="link">Register here</a>.
+</p>
+
+{% endblock %}

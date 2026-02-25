@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}News App{% endblock %}</title>
+
+    <!-- Main CSS file -->
+    <link rel="stylesheet" href="{% static 'news/css/styles.css' %}">
+</head>
+<body>
+
+    <!-- Site wrapper for layout -->
+    <div class="site-wrapper">
+
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            {% if user.is_authenticated %}
+
+                <!-- Left side navigation links -->
+                <div class="nav-left">
+                    <a href="{% url 'home' %}">Home</a>
+
+                    {% if user.role == "reader" %}
+                        <a href="{% url 'article_list' %}">Articles</a>
+                        <a href="{% url 'newsletter_list' %}">Newsletters</a>
+                        <a href="{% url 'journalist_list' %}">Journalists</a>
+                        <a href="{% url 'publisher_list' %}">Publishers</a>
+                        <a href="{% url 'my_subscriptions' %}">My Subscriptions</a>
+                    {% elif user.role == "journalist" %}
+                        <a href="{% url 'my_articles' %}">My Articles</a>
+                        <a href="{% url 'my_newsletters' %}">My Newsletters</a>
+                        <a href="{% url 'article_create' %}">+ New Article</a>
+                        <a href="{% url 'newsletter_create' %}">+ New Newsletter</a>
+                    {% elif user.role == "editor" %}
+                        <a href="{% url 'pending_articles' %}">Pending Articles</a>
+                        <a href="{% url 'article_list' %}">Articles</a>
+                        <a href="{% url 'my_newsletters' %}">My Newsletters</a>
+                        <a href="{% url 'newsletter_create' %}">+ Create Newsletter</a>
+                        <a href="{% url 'publisher_list' %}">Publishers</a>
+                        <a href="{% url 'publisher_create' %}">+ Create Publisher</a>
+                    {% endif %}
+                </div>
+
+                <!-- Right side navigation (user info) -->
+                <div class="nav-right">
+                    <span class="nav-user">Hello, {{ user.username }}</span>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </div>
+
+            {% else %}
+
+                <!-- Left side for guests -->
+                <div class="nav-left">
+                    <a href="{% url 'home' %}">Home</a>
+                </div>
+
+                <!-- Right side for guests -->
+                <div class="nav-right">
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}">Register</a>
+                </div>
+
+            {% endif %}
+        </nav>
+
+        <!-- User messages -->
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="message {{ message.tags }}">
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>&copy; 2026 News App. All rights reserved.</p>
+        </footer>
+
+    </div> <!-- End of site-wrapper -->
+
+</body>
+</html>

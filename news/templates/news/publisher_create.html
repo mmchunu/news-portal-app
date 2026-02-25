@@ -1,0 +1,28 @@
+{% extends "news/base.html" %}
+
+{% block content %}
+
+<h2>Create Publisher</h2>
+
+<!-- Publisher creation form -->
+<form method="POST">
+    {% csrf_token %}
+    
+    <!-- Render all form fields -->
+    {{ form.as_p }}
+    
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-success">
+        Create Publisher
+    </button>
+
+    <!-- Cancel Button -->
+    <a href="#"
+       onclick="if(document.referrer){ history.back(); } else { window.location.href='{% url 'home' %}'; } return false;"
+       class="btn btn-danger">
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}

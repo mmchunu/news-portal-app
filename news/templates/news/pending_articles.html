@@ -1,0 +1,47 @@
+{% extends "news/base.html" %}
+
+{% block content %}
+
+<h2 class="page-title">Pending Articles</h2>
+
+<hr>
+
+{% if articles %}
+    <div class="article-container">
+        {% for article in articles %}
+            <div class="article-card">
+
+                <!-- Article Title -->
+                <h3 class="article-title">
+                    {{ article.title }}
+                </h3>
+
+                <!-- Article Author -->
+                <p class="article-meta">
+                    <strong>Author:</strong> {{ article.author }}
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="article-actions">
+                    <a href="{% url 'article_detail' article.pk %}" class="btn btn-primary">
+                        View Article
+                    </a>
+
+                    <form method="POST" action="{% url 'article_approve' article.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success">
+                            Approve Article
+                        </button>
+                    </form>
+                </div>
+
+                <hr>
+
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No pending articles at the moment.</p>
+{% endif %}
+
+{% endblock %}

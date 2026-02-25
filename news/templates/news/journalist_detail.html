@@ -1,0 +1,45 @@
+{% extends "news/base.html" %}
+
+{% block title %}{{ journalist.username }}{% endblock %}
+
+{% block content %}
+
+<!-- Journalist Profile Section -->
+<h1>{{ journalist.username }}</h1>
+
+<p><strong>Email:</strong> {{ journalist.email }}</p>
+<hr>
+
+{% if user.role == 'reader' %}
+    {% if is_subscribed %}
+        <!-- Unsubscribe Button -->
+        <a href="{% url 'journalist_subscription' journalist.pk %}" class="btn btn-danger">
+            Unsubscribe
+        </a>
+    {% else %}
+        <!-- Subscribe Button -->
+        <a href="{% url 'journalist_subscription' journalist.pk %}" class="btn btn-success">
+            Subscribe
+        </a>
+    {% endif %}
+    <hr>
+{% endif %}
+
+<!-- Articles Section -->
+<h2>Articles</h2>
+{% include 'news/article_preview.html' with articles=journalist.articles.all %}
+
+<!-- Newsletters Section -->
+<h2>Newsletters</h2>
+{% include "news/newsletter_preview.html" with newsletters=journalist.newsletters.all %}
+
+<!-- Back Link -->
+<div>
+    <a href="#"
+       onclick="if(document.referrer){ history.back(); } else { window.location.href='{% url 'home' %}'; } return false;"
+       class="link">
+        ← Back
+    </a>
+</div>
+
+{% endblock %}
