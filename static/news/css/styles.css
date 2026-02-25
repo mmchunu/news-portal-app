@@ -1,0 +1,388 @@
+/* ===============================
+   Base Styles
+   =============================== */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: #0d6efd;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===============================
+   Navigation Bar
+   =============================== */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #dee2e6;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav .nav-left a,
+nav .nav-right a {
+    margin-right: 15px;
+}
+
+nav .nav-user {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* ===============================
+   Buttons
+   =============================== */
+
+/* Primary Button (Blue) */
+.btn-primary {
+    background-color: #0d6efd;
+    color: white;
+}
+
+/* Secondary Button (Green) */
+.btn-success {
+    background-color: #198754;
+    color: white;
+}
+
+/* Danger Button (Red) */
+.btn-danger {
+    background-color: #7a1c1c;
+    color: white;
+}
+
+/* Cancel / Neutral Button */
+.btn-cancel {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-info {
+    background-color: #0d6efd;
+    color: white;
+}
+
+/* Button hover effects */
+button:hover {
+    opacity: 0.9;
+}
+
+.btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 14px;
+    font-size: 1em;
+    text-align: center;
+}
+
+/* ===============================
+   Messages / Alerts
+   =============================== */
+
+.messages {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Success Message */
+.message.success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+/* Error / Danger Message */
+.message.error,
+.message.danger {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+/* Info Message */
+.message.info {
+    background-color: #cff4fc;
+    color: #055160;
+}
+
+/* ===============================
+   Main Content
+   =============================== */
+
+main {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* ===============================
+   Articles & Newsletters
+   =============================== */
+
+.article-container,
+.newsletter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.article-card,
+.newsletter-card {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.article-title,
+.newsletter-title {
+    margin-top: 0;
+}
+
+.article-meta,
+.newsletter-meta {
+    color: #555555;
+    font-size: 0.9em;
+    margin: 5px 0;
+}
+
+.article-actions,
+.newsletter-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* ===============================
+   Forms
+   =============================== */
+
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #dee2e6;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form button {
+    margin-top: 10px;
+}
+
+/* ===============================
+   Footer
+   =============================== */
+
+footer {
+    background-color: #212529;
+    color: #f8f9fa;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+}
+
+/* ===============================
+   Subscription / Access Box
+   =============================== */
+
+.subscription-required {
+    background-color: #f8d7da;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+/* ===============================
+   Page Titles
+   =============================== */
+
+.page-title {
+    margin-bottom: 15px;
+}
+
+/* ===============================
+   Tables (if used)
+   =============================== */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+table th,
+table td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f1f1f1;
+}
+
+/* ===============================
+   Responsive Design
+   =============================== */
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    nav .nav-left a,
+    nav .nav-right a {
+        margin: 5px 0;
+    }
+
+    .article-actions,
+    .newsletter-actions {
+        flex-direction: column;
+    }
+}
+
+/* =========================
+   Journalist List
+========================= */
+
+.list-clean {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.journalist-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px 20px;
+    margin-bottom: 20px;   /* THIS creates separation */
+}
+
+.journalist-card p {
+    margin: 8px 0;
+}
+
+/* =========================
+   Publisher List
+========================= */
+
+.publisher-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.publisher-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px 20px;
+    margin-bottom: 20px;   /* separation between publishers */
+}
+
+.publisher-actions {
+    margin-top: 10px;
+}
+
+/* =========================
+   My Subscriptions
+========================= */
+
+.subscription-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.subscription-item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px 20px;
+    margin-bottom: 20px;   /* separation between subscriptions */
+}
+
+.subscription-date {
+    margin: 8px 0;
+    color: #555;
+    font-size: 0.9em;
+}
+
+/* =========================
+   Button-style Links
+========================= */
+
+.btn-link {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    text-decoration: none;
+    color: white;
+}
+
+.btn-link:hover {
+    text-decoration: none;
+    opacity: 0.9;
+}
+
+/* Keep action buttons aligned properly */
+.article-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.article-actions form {
+    margin: 0;
+}
+
+/* Inline action forms (approve/delete buttons inside cards) */
+.article-actions form,
+.newsletter-actions form {
+    background: none;
+    padding: 0;
+    border: none;
+    margin: 0;
+}
