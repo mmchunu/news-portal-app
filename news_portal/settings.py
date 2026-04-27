@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-ug4u^r=3v_wxfp$u6t6%7hdebc%-5xitc!b7dvz&5hn+j6og5m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["testserver", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -79,17 +79,8 @@ WSGI_APPLICATION = "news_portal.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "news_portal_db",
-        "USER": "news_user",
-        "PASSWORD": "StrongPassword123!",
-        "HOST": "localhost",
-        "PORT": "3306",
-        "OPTIONS": {
-            "init_command": (
-                "SET sql_mode='STRICT_TRANS_TABLES'"
-            ),
-        },
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
