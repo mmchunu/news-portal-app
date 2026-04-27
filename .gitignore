@@ -205,3 +205,15 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# --- Project specific fixes ---
+
+# Sphinx Windows helper
+make.bat
+
+# Sphinx build output
+docs/build/
+build/
+
+# IDE
+.vscode/
