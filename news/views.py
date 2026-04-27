@@ -136,7 +136,7 @@ def home(request):
 
 def article_list(request):
     """
-    Display a list of articles based on user role and publisher association.
+    Display a list of articles based on user role and publisher association
 
     Rules:
     - Readers and journalists see only approved articles.
@@ -191,7 +191,7 @@ def article_list(request):
 @login_required
 def article_detail(request, pk):
     """
-    Display the full content of a single article.
+    Display the full content of a single article
 
     Access rules:
     - Approved articles:
