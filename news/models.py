@@ -72,7 +72,7 @@ class CustomUser(AbstractUser):
 
 class Publisher(models.Model):
     """
-    Represents a news publisher.
+    Represents a news publisher
 
     A publisher can have multiple editors and journalists.
     Articles may be published under a publisher.
@@ -109,7 +109,7 @@ class Publisher(models.Model):
 
 class Article(models.Model):
     """
-    Represents a news article.
+    Represents a news article
 
     Publishing rules:
     - If published independently (no publisher), it is auto-approved.
