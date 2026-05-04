@@ -139,11 +139,14 @@ def article_list(request):
     Display a list of articles based on user role and publisher association
 
     Rules:
-    - Readers and journalists see only approved articles.
-    - Editors see:
-        * All approved articles.
-        * Pending articles only from publishers they are associated with.
-    - Independent articles (no publisher) are always visible.
+    
+    Readers and journalists see only approved articles.
+    
+    Editors see:
+        All approved articles.
+        Pending articles only from publishers they are associated with.
+    
+    Independent articles (no publisher) are always visible.
     """
     user = request.user
 
@@ -194,10 +197,12 @@ def article_detail(request, pk):
     Display the full content of a single article
 
     Access rules:
-    - Approved articles:
+
+        Approved articles:
         * Readers must be subscribed (publisher or journalist).
         * Editors and journalists can view normally.
-    - Pending articles:
+
+        Pending articles:
         * Only editors associated with that publisher can view.
     """
 
@@ -408,9 +413,9 @@ def article_create(request):
     Allow journalists to create new articles.
 
     Publishing rules:
-    - If no publisher is selected → auto-approved.
-    - If a publisher is selected → must be approved by an editor
-      associated with that publisher.
+        If no publisher is selected → auto-approved.
+        If a publisher is selected → must be approved by an editor
+        associated with that publisher.
     """
 
     if request.method == "POST":

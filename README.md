@@ -219,3 +219,48 @@ news_portal/
 - Used environment variables for secure API key handling.
 
 - Simulated X API posting when permissions are restricted.
+
+## RUNNING WITH DOCKER
+
+This project can also be run using Docker.
+
+1. Build the Docker image
+2. Apply migrations
+3. Run the application
+
+Access the app: http://localhost:8000/
+
+### ⚠️ Important Notes
+- Migrations must be run before starting the server to avoid database errors.
+- The Docker container uses SQLite for simplicity.
+- Environment variables may need to be configured if using external APIs.
+
+## DOCUMENTATION (SPHINX)
+
+This project includes documentation generated using Sphinx.
+
+### Generate documentation
+```
+From the project root:
+sphinx-apidoc -o docs/source/ news
+```
+### Build HTML documentation
+```
+cd docs
+sphinx-build source build/html
+```
+
+### View documentation
+
+Open:
+```
+docs/build/html/index.html
+```
+
+### Notes
+
+- Documentation is generated from docstrings in the code.
+- Ensure Sphinx is installed:
+```
+pip install sphinx
+```

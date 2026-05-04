@@ -112,9 +112,9 @@ class Article(models.Model):
     Represents a news article
 
     Publishing rules:
-    - If published independently (no publisher), it is auto-approved.
-    - If published under a publisher, it must be approved by
-      an editor associated with that publisher.
+        If published independently (no publisher), it is auto-approved.
+        If published under a publisher, it must be approved by an editor 
+        associated with that publisher.
     """
 
     title = models.CharField(max_length=255, help_text="Title of the article.")
